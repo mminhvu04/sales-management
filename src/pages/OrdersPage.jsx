@@ -118,7 +118,6 @@ async function handleChangeStatus(order, nextStatus) {
     <div style={styles.page}>
       <header style={styles.header}>
         <div>
-          <h1 style={styles.title}>Quản lý đơn hàng</h1>
           <p style={styles.subtitle}>
             Theo dõi và quản lý các đơn bán hàng
           </p>
@@ -126,7 +125,6 @@ async function handleChangeStatus(order, nextStatus) {
 
         <nav style={styles.nav}>
           <Link to="/create-order">+ Tạo đơn hàng</Link>
-          <Link to="/">Dashboard</Link>
         </nav>
       </header>
 

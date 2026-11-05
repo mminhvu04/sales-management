@@ -185,7 +185,6 @@ function CreateOrderPage() {
     <div style={styles.page}>
       <header style={styles.header}>
         <div>
-          <h1 style={styles.title}>Tạo đơn hàng</h1>
           <p style={styles.subtitle}>
             Chọn khách hàng và sản phẩm cần bán
           </p>

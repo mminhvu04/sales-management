@@ -4,42 +4,37 @@ import {
   UserCircle
 } from "lucide-react";
 
-function Header({ title }) {
-
+function Header({ title, userName, role }) {
   return (
     <header className="header">
-
-      <div>
+      <div className="header-title">
         <h2>{title}</h2>
-        <p>Quản lý hoạt động cửa hàng</p>
+        <p>Không gian quản lý bán hàng</p>
       </div>
 
       <div className="header-right">
-
-        <div className="search-box">
-          <Search size={18} />
-
+        <label className="search-box">
+          <Search size={17} aria-hidden="true" />
           <input
             type="text"
             placeholder="Tìm kiếm..."
+            aria-label="Tìm kiếm"
           />
-        </div>
+        </label>
 
-        <button className="notification">
-          <Bell size={22} />
+        <button className="notification" type="button" aria-label="Thông báo">
+          <Bell size={19} aria-hidden="true" />
+          <span className="notification-dot" />
         </button>
 
         <div className="user-profile">
-          <UserCircle size={35} />
-
+          <span className="user-avatar"><UserCircle size={23} aria-hidden="true" /></span>
           <div>
-            <strong>Admin</strong>
-            <small>Quản trị viên</small>
+            <strong>{userName}</strong>
+            <small>{role === "admin" ? "Quản trị viên" : role || "Nhân viên"}</small>
           </div>
         </div>
-
       </div>
-
     </header>
   );
 }

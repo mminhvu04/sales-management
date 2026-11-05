@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import StatCard from "../components/StatCard";
 import SalesChart from "../components/SalesChart";
@@ -107,7 +108,11 @@ function Dashboard() {
   const lowStockProducts = stats?.low_stock_products || [];
 
   if (loading) {
-    return <div className="dashboard">Đang tải dữ liệu thống kê...</div>;
+    return (
+      <div className="dashboard-loading" role="status">
+        Đang tải dữ liệu thống kê...
+      </div>
+    );
   }
 
   return (
@@ -159,11 +164,47 @@ function Dashboard() {
         />
       </div>
 
-      <SalesChart data={chartData} />
+      <div className="dashboard-overview-grid">
+        <SalesChart data={chartData} />
+
+        <section className="table-card low-stock-card">
+          <div className="section-heading">
+            <div>
+              <h3>Sản phẩm sắp hết hàng</h3>
+              <p>Cần được bổ sung trong kho</p>
+            </div>
+            <span className="section-icon warning-icon">
+              <AlertTriangle size={17} aria-hidden="true" />
+            </span>
+          </div>
+
+          {lowStockProducts.length > 0 ? (
+            <ul className="low-stock-list">
+              {lowStockProducts.map((product) => (
+                <li key={product.product_id}>
+                  <span className="low-stock-product">
+                    <span className="product-mark">{product.name?.slice(0, 1) || "S"}</span>
+                    <span>{product.name}</span>
+                  </span>
+                  <span className="stock-count">{product.quantity} còn lại</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="empty-state">Không có sản phẩm sắp hết hàng.</p>
+          )}
+        </section>
+      </div>
 
       <div className="table-card">
-        <h3>Đơn hàng gần đây</h3>
+        <div className="section-heading">
+          <div>
+            <h3>Đơn hàng gần đây</h3>
+            <p>5 giao dịch mới nhất</p>
+          </div>
+        </div>
 
+        <div className="table-scroll">
         <table>
           <thead>
             <tr>
@@ -199,11 +240,18 @@ function Dashboard() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       <div className="table-card">
-        <h3>Sản phẩm bán chạy</h3>
+        <div className="section-heading">
+          <div>
+            <h3>Sản phẩm bán chạy</h3>
+            <p>Sản phẩm được quan tâm nhiều nhất</p>
+          </div>
+        </div>
 
+        <div className="table-scroll">
         <table>
           <thead>
             <tr>
@@ -229,36 +277,7 @@ function Dashboard() {
             )}
           </tbody>
         </table>
-      </div>
-
-      <div className="table-card">
-        <h3>Sản phẩm sắp hết hàng</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Sản phẩm</th>
-              <th>Số lượng tồn</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {lowStockProducts.map((product) => (
-              <tr key={product.product_id}>
-                <td>{product.name}</td>
-                <td>{product.quantity}</td>
-              </tr>
-            ))}
-
-            {lowStockProducts.length === 0 && (
-              <tr>
-                <td colSpan="2" style={{ textAlign: "center" }}>
-                  Không có sản phẩm sắp hết hàng.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        </div>
       </div>
     </div>
   );

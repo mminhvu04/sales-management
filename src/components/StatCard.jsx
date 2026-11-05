@@ -17,7 +17,7 @@ function StatCard({ title, value, type, description }) {
   const Icon = icons[type];
 
   return (
-    <div className="stat-card">
+    <div className={`stat-card stat-card-${type}`}>
 
       <div className="stat-info">
         <p>{title}</p>

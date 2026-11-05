@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 function ImportStockPage() {
@@ -109,17 +108,10 @@ function ImportStockPage() {
     <div style={styles.page}>
       <header style={styles.header}>
         <div>
-          <h1 style={styles.title}>Quản lý nhập kho</h1>
           <p style={styles.subtitle}>
             Nhập hàng và theo dõi lịch sử biến động kho
           </p>
         </div>
-
-        <nav style={styles.nav}>
-          <Link to="/products">Sản phẩm</Link>
-          <Link to="/customers">Khách hàng</Link>
-          <Link to="/">Dashboard</Link>
-        </nav>
       </header>
 
       {error && <div style={styles.error}>{error}</div>}

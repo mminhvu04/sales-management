@@ -1,6 +1,5 @@
 
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useAuth } from "../context/AuthContext";
 
@@ -170,16 +169,9 @@ function CustomerPage() {
     <div style={styles.page}>
       <div style={styles.header}>
         <div>
-          <h1 style={styles.title}>Quản lý khách hàng</h1>
           <p style={styles.subtitle}>
             Lưu trữ và quản lý thông tin khách hàng
           </p>
-        </div>
-
-        <div style={styles.navigation}>
-          <Link to="/categories">Danh mục</Link>
-          <Link to="/products">Sản phẩm</Link>
-          <Link to="/">Dashboard</Link>
         </div>
       </div>
 

@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useAuth } from "../context/AuthContext";
 
@@ -149,15 +148,9 @@ function CategoryPage() {
     <div style={styles.page}>
       <div style={styles.header}>
         <div>
-          <h1 style={styles.title}>Quản lý danh mục</h1>
           <p style={styles.subtitle}>
             Quản lý các nhóm sản phẩm trong hệ thống
           </p>
-        </div>
-
-        <div style={styles.navigation}>
-          <Link to="/products">Sản phẩm</Link>
-          <Link to="/">Dashboard</Link>
         </div>
       </div>
 

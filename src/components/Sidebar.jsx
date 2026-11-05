@@ -8,75 +8,58 @@ import {
   ChartColumn,
   LogOut
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const menuItems = [
-  {
-    name: "Dashboard",
-    icon: LayoutDashboard
-  },
-  {
-    name: "Sản phẩm",
-    icon: Package
-  },
-  {
-    name: "Danh mục",
-    icon: Tags
-  },
-  {
-    name: "Kho hàng",
-    icon: Warehouse
-  },
-  {
-    name: "Đơn hàng",
-    icon: ShoppingCart
-  },
-  {
-    name: "Khách hàng",
-    icon: Users
-  },
-  {
-    name: "Báo cáo",
-    icon: ChartColumn
-  }
+  { name: "Dashboard", path: "/", icon: LayoutDashboard, end: true },
+  { name: "Sản phẩm", path: "/products", icon: Package },
+  { name: "Danh mục", path: "/categories", icon: Tags },
+  { name: "Kho hàng", path: "/import-stock", icon: Warehouse },
+  { name: "Đơn hàng", path: "/orders", icon: ShoppingCart },
+  { name: "Khách hàng", path: "/customers", icon: Users },
+  { name: "Báo cáo", path: "/reports", icon: ChartColumn },
 ];
 
-function Sidebar({ activePage, setActivePage }) {
+function Sidebar({ pathname, onLogout }) {
   return (
     <aside className="sidebar">
+      <NavLink className="logo" to="/" end aria-label="SalesPro, về Dashboard">
+        <span className="logo-mark"><Package size={20} /></span>
+        <span className="logo-name">SalesPro</span>
+      </NavLink>
 
-      <div className="logo">
-        <Package size={28} />
-        <h2>SalesPro</h2>
-      </div>
+      <p className="menu-title">QUẢN LÝ</p>
 
-      <p className="menu-title">MENU</p>
-
-      <nav>
+      <nav className="sidebar-nav" aria-label="Điều hướng chính">
         {menuItems.map((item) => {
           const Icon = item.icon;
+          const isActive = item.path === "/orders"
+            ? pathname.startsWith("/orders")
+            : item.path === "/import-stock"
+              ? pathname === item.path
+              : pathname === item.path;
 
           return (
-            <button
+            <NavLink
               key={item.name}
-              className={
-                activePage === item.name
-                  ? "menu-item active"
-                  : "menu-item"
-              }
-              onClick={() => setActivePage(item.name)}
+              to={item.path}
+              end={item.end}
+              className={`menu-item${isActive ? " active" : ""}`}
+              aria-label={item.name}
+              title={item.name}
+              aria-current={isActive ? "page" : undefined}
             >
-              <Icon size={20} />
+              <Icon size={18} aria-hidden="true" />
               <span>{item.name}</span>
-            </button>
+            </NavLink>
           );
         })}
       </nav>
 
-      <button className="menu-item logout">
-        <LogOut size={20} />
+      <button className="menu-item logout" onClick={onLogout}>
+        <LogOut size={18} aria-hidden="true" />
         <span>Đăng xuất</span>
       </button>
-
     </aside>
   );
 }
